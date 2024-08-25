@@ -11,29 +11,31 @@
     @endif
 
     <div class="overflow-x-auto mb-8">
-        <table class="table-auto w-full text-center border-collapse">
-            <thead>
-                <tr class="bg-gray-200 text-gray-800">
-                    <th class="px-4 py-2 border">Registrant Name</th>
-                    <th class="px-4 py-2 border">Email</th>
-                    <th class="px-4 py-2 border">Status</th>
-                    <th class="px-4 py-2 border">Action</th>
+    <input type="text" id="searchInput" placeholder="Search by name or email..." class="border rounded py-2 px-3 mb-4 w-full">
+    
+    <table class="table-auto w-full text-center border-collapse">
+        <thead>
+            <tr class="bg-gray-200 text-gray-800">
+                <th class="px-4 py-2 border">Registrant Name</th>
+                <th class="px-4 py-2 border">Email</th>
+                <th class="px-4 py-2 border">Status</th>
+                <th class="px-4 py-2 border">Action</th>
+            </tr>
+        </thead>
+        <tbody id="vendorTableBody">
+            @foreach ($vendors as $vendor)
+                <tr class="border-b">
+                    <td class="px-4 py-2">{{ $vendor->registrant }}</td>
+                    <td class="px-4 py-2">{{ $vendor->email }}</td>
+                    <td class="px-4 py-2">{{ $vendor->status }}</td>
+                    <td class="px-4 py-2">
+                        <a href="{{ route('admin.vendors.view', $vendor->id) }}" class="text-blue-500 hover:text-blue-700">View Details</a>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach ($vendors as $vendor)
-                    <tr class="border-b">
-                        <td class="px-4 py-2">{{ $vendor->registrant }}</td>
-                        <td class="px-4 py-2">{{ $vendor->email }}</td>
-                        <td class="px-4 py-2">{{ $vendor->status }}</td>
-                        <td class="px-4 py-2">
-                            <a href="{{ route('admin.vendors.view', $vendor->id) }}" class="text-blue-500 hover:text-blue-700">View Details</a>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 </div>
 
 <div class="container mx-auto my-8 p-6 bg-white rounded-lg shadow-lg">
@@ -125,4 +127,21 @@
         </table>
     </div>
 </div>
+<script>
+    // Function to filter table rows based on search input
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        const searchValue = this.value.toLowerCase();
+        const tableRows = document.querySelectorAll('#vendorTableBody tr');
+
+        tableRows.forEach(row => {
+            const registrant = row.cells[0].textContent.toLowerCase();
+            const email = row.cells[1].textContent.toLowerCase();
+            if (registrant.includes(searchValue) || email.includes(searchValue)) {
+                row.style.display = ''; // Show row
+            } else {
+                row.style.display = 'none'; // Hide row
+            }
+        });
+    });
+</script>
 @endsection
