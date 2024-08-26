@@ -7,6 +7,12 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## About eProcurement System
+Register feature is only for Vendors, upon registering, Admins will need to approve said Vendors
+As for admin registrations, it's hardcoded role value of 0 from myphpadmin where only the webmaster can do this, potential solutions is to have a separate register portal for admins
+Open Tender is just a placeholder table, admins should be able to post new Open tenders, review tender applications as well as edit, delete tenders
+Vendors are able to view open tender, and submit their bids as well as view the result of the "bidding"
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
